@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ML model evaluation outcome showing high risk warnings or safe status recommendations.">
+    <title>Rising Waters - Prediction Result</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Navigation Header -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="/" class="nav-logo">
+                    <i class="fa-solid fa-cloud-showers-water"></i> Rising Waters
+                </a>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/predict">Predict Flood</a></li>
+                    <li><a href="/predict" class="btn-nav">Get Started</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="main-content" style="margin-top: 3rem;">
+            <section class="card animate-fade-in">
+                <div class="result-container">
+                    
+                    {% if prediction == 1 %}
+                        <!-- FLOOD PREDICTED CASE -->
+                        <div class="result-badge danger">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <h1 class="result-title danger">⚠ Flood Chance Detected</h1>
+                        <h3 class="result-subtitle">High Flood Risk</h3>
+                        <p class="result-desc">
+                            The Random Forest model has analyzed the input meteorological parameters and detected a significant risk threshold breach. <strong>Authorities should initiate precautionary measures</strong>, check drainage channel states, and alert local response services immediately.
+                        </p>
+                    {% else %}
+                        <!-- NO FLOOD PREDICTED CASE -->
+                        <div class="result-badge safe">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <h1 class="result-title safe">✅ No Flood Chance</h1>
+                        <h3 class="result-subtitle" style="color: var(--accent-success);">Low Flood Risk</h3>
+                        <p class="result-desc">
+                            Current weather conditions and moisture levels indicate a low flood risk. No critical warning indices were crossed. Atmospheric indices indicate stable levels. Continue normal monitoring operations.
+                        </p>
+                    {% endif %}
+
+                    <!-- Query Parameter Details Table -->
+                    <div class="result-details-box">
+                        <div class="detail-item">
+                            <h5>Annual Rainfall</h5>
+                            <p>{{ "%.1f"|format(inputs.annual_rainfall) }} mm</p>
+                        </div>
+                        <div class="detail-item">
+                            <h5>Seasonal Rainfall</h5>
+                            <p>{{ "%.1f"|format(inputs.seasonal_rainfall) }} mm</p>
+                        </div>
+                        <div class="detail-item">
+                            <h5>Cloud Visibility</h5>
+                            <p>{{ "%.1f"|format(inputs.cloud_visibility) }}%</p>
+                        </div>
+                        <div class="detail-item">
+                            <h5>Weather Index</h5>
+                            <p>{{ "%.1f"|format(inputs.meteorological_parameters) }} / 100</p>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Action Buttons -->
+                    <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+                        <a href="/predict" class="btn btn-primary">
+                            <i class="fa-solid fa-rotate-left"></i> Run Another Prediction
+                        </a>
+                        <a href="/" class="btn btn-secondary">
+                            <i class="fa-solid fa-house"></i> Return Home
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fa-solid fa-cloud-showers-water" style="color: var(--accent-primary); margin-right: 0.5rem;"></i> Rising Waters Project
+                </div>
+                <p class="footer-text">
+                    Designed to provide predictive analysis models to civil defense agencies. Built using Python, Scikit-Learn, and Flask web frameworks.
+                </p>
+                <div class="footer-bottom">
+                    &copy; 2026 Rising Waters. Prepared for IBM Cloud / SmartBridge Application Layer integration. All rights reserved.
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
