@@ -144,18 +144,23 @@ main.container {
 }
 
 .banner-img-container {
-    height: 400px;
+    min-height: 480px;
     width: 100%;
     position: relative;
     overflow: hidden;
+    display: flex;
 }
 
 .banner-img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.85;
+    opacity: 0.35;
     transition: transform 0.5s ease;
+    z-index: 1;
 }
 
 .banner-card:hover .banner-img {
@@ -163,15 +168,14 @@ main.container {
 }
 
 .banner-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(to top, rgba(10, 14, 23, 0.95) 20%, rgba(10, 14, 23, 0.4) 70%, transparent 100%);
-    padding: 3rem 2.5rem 2rem 2.5rem;
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(135deg, rgba(10, 14, 23, 0.9) 0%, rgba(10, 14, 23, 0.65) 100%);
+    padding: 3.5rem 2.5rem;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
+    width: 100%;
 }
 
 .banner-overlay h1 {
