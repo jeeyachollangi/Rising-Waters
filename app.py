@@ -88,11 +88,12 @@ def predict():
             scaled_features = sc.transform(input_df)
             prediction = int(model.predict(scaled_features)[0])
             
-            # 4. Redirect based on prediction
+            # 4. Render intermediate loading page
             if prediction == 1:
-                return redirect(url_for('chance'))
+                dest = url_for('chance')
             else:
-                return redirect(url_for('no_chance'))
+                dest = url_for('no_chance')
+            return render_template('loading.html', redirect_url=dest)
                 
         except ValueError:
             return render_template('index.html', error_msg="Please enter valid numerical values for all parameters.")
