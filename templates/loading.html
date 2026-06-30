@@ -51,7 +51,7 @@
             
             const redirectUrl = "{{ redirect_url }}";
             
-            // Progress animation and log sequence
+            // Progress animation and log sequence (Optimized to be snappy)
             setTimeout(() => {
                 // Step 1 done, start Step 2
                 progressBar.style.width = '40%';
@@ -59,7 +59,7 @@
                 log1.querySelector('.log-icon').className = 'fa-solid fa-circle-check log-icon success';
                 
                 log2.classList.add('active');
-            }, 800);
+            }, 300);
             
             setTimeout(() => {
                 // Step 2 done, start Step 3
@@ -69,19 +69,19 @@
                 
                 log3.classList.add('active');
                 log3.querySelector('.log-icon').className = 'fa-solid fa-spinner fa-spin log-icon';
-            }, 1600);
+            }, 700);
             
             setTimeout(() => {
                 // Step 3 done, finish progress
                 progressBar.style.width = '100%';
                 log3.classList.remove('active');
                 log3.querySelector('.log-icon').className = 'fa-solid fa-circle-check log-icon success';
-            }, 2300);
+            }, 1000);
             
             setTimeout(() => {
                 // Redirect to result page
                 window.location.href = redirectUrl;
-            }, 2700);
+            }, 1200);
         });
     </script>
 

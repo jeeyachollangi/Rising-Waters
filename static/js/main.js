@@ -104,36 +104,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------
     const preloader = document.getElementById('preloader');
     if (preloader) {
-        // Fade out preloader when page is fully loaded
-        window.addEventListener('load', () => {
+        const fadeOutPreloader = () => {
             preloader.classList.add('fade-out');
-        });
+        };
 
-        // Safe fallback to make sure preloader disappears eventually
-        setTimeout(() => {
-            preloader.classList.add('fade-out');
-        }, 1200);
+        // Fade out preloader 150ms after DOM is fully parsed (snappy loading splash screen)
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(fadeOutPreloader, 150);
+            });
+        } else {
+            setTimeout(fadeOutPreloader, 150);
+        }
     }
-
-    // Intercept click on links for a smooth fade-in page transition
-    const transitionLinks = document.querySelectorAll('a:not([target="_blank"]):not([href^="#"])');
-    transitionLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            const href = link.getAttribute('href');
-            // Intercept only internal website paths
-            if (href && !href.startsWith('javascript:') && !href.startsWith('mailto:') && !href.startsWith('tel:')) {
-                e.preventDefault();
-                if (preloader) {
-                    preloader.classList.remove('fade-out');
-                    setTimeout(() => {
-                        window.location.href = href;
-                    }, 400); // matches CSS fade-out duration
-                } else {
-                    window.location.href = href;
-                }
-            }
-        });
-    });
 
 
 
