@@ -89,34 +89,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 alertBox.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> <span>${errors.join(" | ")}</span>`;
                 alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            } else {
-                // If form is valid, trigger preloader before browser submits and navigates
-                const preloader = document.getElementById('preloader');
-                if (preloader) {
-                    preloader.classList.remove('fade-out');
-                }
             }
         });
     }
 
-    // ----------------------------------------------------
-    // Preloader and Transition Logic
-    // ----------------------------------------------------
-    const preloader = document.getElementById('preloader');
-    if (preloader) {
-        const fadeOutPreloader = () => {
-            preloader.classList.add('fade-out');
-        };
-
-        // Fade out preloader 150ms after DOM is fully parsed (snappy loading splash screen)
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => {
-                setTimeout(fadeOutPreloader, 150);
-            });
-        } else {
-            setTimeout(fadeOutPreloader, 150);
-        }
-    }
 
 
 
